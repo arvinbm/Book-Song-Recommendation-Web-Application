@@ -89,14 +89,17 @@
         <section class="input">
             <label for="name-signup">First Name * </label>
             <input type="text" id="name-signup" autocomplete="off">
+            <span id="name-error" class="error-message"></span>
         </section>
         <section class="input">
             <label for="lastname-signup">Last Name * </label>
             <input type="text" id="lastname-signup" autocomplete="off">
+            <span id="lastname-error" class="error-message"></span>
         </section>
         <section class="input">
             <label for="email-signup">E-mail * </label>
             <input type="email" id="email-signup" autocomplete="off">
+            <span id="email-error" class="error-message"></span>
         </section>
         <section class="input">
             <label for="country">Country * </label>
@@ -105,16 +108,20 @@
                 <option value="USA">United States</option>
                 <option value="Mexico">Mexico</option>
             </select>
+            <span id="country-error" class="error-message"></span>
         </section>
         <section class="input">
             <label for="username">Username * </label>
             <input type="text" id="username" autocomplete="off">
+            <span id="username-error" class="error-message"></span>
         </section>
         <section class="input">
             <label for="password">Password * </label>
             <input type="password" id="password" autocomplete="off">
             <i class="fa-solid fa-eye" id="eye" style="display: none"></i>
+            <span id="password-error" class="error-message"></span>
         </section>
+        <span id="general-error" class="general-error-message"></span>
         <button class="signUpButton" id="signup_page_button">Sign Up</button>
     </form>
 </main>

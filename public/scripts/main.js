@@ -37,7 +37,12 @@ function  createEventListenersSignupButton() {
     const country = document.querySelector('#country')
     const username = document.querySelector('#username')
     const password = document.querySelector('#password')
-    let isInputsValid = true;
+    const nameErrorMessage = document.querySelector('#name-error')
+    const lastNameErrorMessage = document.querySelector('#lastname-error')
+    const emailErrorMessage = document.querySelector('#email-error')
+    const usernameErrorMessage = document.querySelector('#username-error')
+    const passwordErrorMessage = document.querySelector('#password-error')
+    const generalErrorMessage = document.querySelector('#general-error')
 
     signupForm.addEventListener("submit", function(event){
         event.preventDefault()
@@ -46,55 +51,54 @@ function  createEventListenersSignupButton() {
     signupButton.addEventListener("click", handleSignupClick)
 
     function handleSignupClick(event) {
-        event.preventDefault()
+        event.preventDefault();
 
-        for (let i = 0; i < users.length; i++) {
-            // Checking if the user already has an account.
-            if (users[i].email === email.value && email.value !== '') {
-                console.log("User already has an account.")
-                isInputsValid = false
+        const fields = [
+            { element: name, errorMessage: nameErrorMessage, label: "First Name" },
+            { element: lastName, errorMessage: lastNameErrorMessage, label: "Last Name" },
+            { element: email, errorMessage: emailErrorMessage, label: "Email" },
+            { element: username, errorMessage: usernameErrorMessage, label: "Username" },
+            { element: password, errorMessage: passwordErrorMessage, label: "Password" }
+        ];
+
+        let isInputsValid = true;
+
+        for (const field of fields) {
+            if (field.element.value === '') {
+                field.errorMessage.textContent = `${field.label} Is Required.`;
+                isInputsValid = false;
+            } else {
+                field.errorMessage.textContent = '';
             }
+        }
 
-            // Checking if the username provided is in use.
-            if (users[i].username === username.value && username.value !== '') {
-                console.log("The username has already been taken.")
-                isInputsValid = false
+        if (isInputsValid) {
+            for (const user of users) {
+                if (user.email === email.value && email.value !== '') {
+                    generalErrorMessage.textContent = "You already have an account!"
+                    isInputsValid = false;
+                    break;
+                } else {
+                    generalErrorMessage.textContent = ''
+                }
+
+                if (user.username === username.value && username.value !== '') {
+                    generalErrorMessage.textContent = "The username is in use! Please enter another one."
+                    isInputsValid = false;
+                    break;
+                } else {
+                    generalErrorMessage.textContent = ''
+                }
             }
         }
 
-        // Check if the fields are not empty.
-        if (name.value === '') {
-            console.log("Name has not been provided.")
-            isInputsValid = false
-        }
-
-        if (lastName.value === '') {
-            console.log("Last name has not been provided.")
-            isInputsValid = false
-        }
-
-        if (email.value === '') {
-            console.log("Email has not been provided.")
-            isInputsValid = false
-        }
-
-        if (username.value === '') {
-            console.log("Username has not been provided.")
-            isInputsValid = false
-        }
-
-        if (password.value === '') {
-            console.log("Password has not been provided.")
-            isInputsValid = false
-        }
-
-        // Creating a new user object if the provided inputs are valid.
         if (isInputsValid) {
             users.push(new User(name.value, lastName.value, email.value,
-               country.value, username.value, password.value))
-            console.log("User has been created.")
+                country.value, username.value, password.value));
+            console.log("User has been created.");
         }
     }
+
 }
 
 window.onload = function() {
