@@ -78,13 +78,29 @@
     </figure>
 </main>
 
-<script type="module" src="../scripts/stars.js"></script>
-<script type="module" src="../scripts/earth.js"></script>
+<script type="module" src="/scripts/stars.js"></script>
+<script type="module" src="/scripts/earth.js"></script>
 
-<main id="overlay">
-    <article>
-        <h1><strong>Log In!</strong></h1>
-    </article>
+<main id="overlay_login">
+    <form id="login_form">
+        <section class="input">
+            <label for="username-login">Username * </label>
+            <input type="text" id="username-login" autocomplete="off">
+            <span id="username-error" class="error-message"></span>
+        </section>
+        <section class="input">
+            <label for="password-login">Password *</label>
+            <input type="text" id="password-login" autocomplete="off">
+            <span id="password-error" class="error-message"></span>
+        </section>
+        <span id="general-error" class="general-error-message"></span>
+
+        <div id="buttons">
+            <button class="login-signup-buttons" id="login_signup_button">Log In</button>
+            <button class="login-signup-buttons" id="back_button"
+                    onclick="window.location.href = '/'">Back</button>
+        </div>
+    </form>
 </main>
 
 </body>

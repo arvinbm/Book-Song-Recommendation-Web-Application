@@ -30,7 +30,7 @@ function createEventListenersEye() {
 
 function  createEventListenersSignupButton() {
     const signupForm = document.querySelector("#signup_form")
-    const signupButton = document.querySelector("#signup_page_button")
+    const signupButton = document.querySelector("#login_signup_button")
     const name = document.querySelector("#name-signup")
     const lastName = document.querySelector('#lastname-signup')
     const email = document.querySelector('#email-signup')

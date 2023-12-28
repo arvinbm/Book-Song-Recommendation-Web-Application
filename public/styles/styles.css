@@ -3,7 +3,7 @@ body {
     font-size: larger;
     overflow: hidden;
 }
-#overlay_signup {
+#overlay_signup, #overlay_login {
     position: absolute;
     top: 70px;
     left: 50px;
@@ -40,7 +40,7 @@ body {
     scale: 1.15;
 }
 
-.signUpButton {
+.login-signup-buttons {
     background-color: lightslategrey;
     color: oldlace;
     padding: 5px 40px;
@@ -52,22 +52,22 @@ body {
     text-shadow: 3px 3px 2px #312e2f;
 }
 
-#signup_page_button {
+#login_signup_button {
     margin-left: 210px;
     padding: 15px 40px;
 }
 
-#signup_page_back_button {
+#back_button {
     width: 145px;
     margin-left: 50px;
     padding: 15px 40px;
 }
 
-.signUpButton:hover {
+.login-signup-buttons:hover {
     scale: 1.15;
 }
 
-#overlay_signup form {
+#signup_form, #login_form {
     color: oldlace;
     user-select: none;
     text-shadow: 2px 2px 2px #727173;
