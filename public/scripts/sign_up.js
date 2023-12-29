@@ -1,8 +1,6 @@
 import {User} from "./user.js";
 import {UserController} from "./user_controller.js"
 
-// This lists holds the user objects.
-let users = []
 function createEventListenersEye() {
 
     // Getting the element ids from the DOM.
@@ -31,7 +29,7 @@ function createEventListenersEye() {
 
 function  createEventListenersSignupButton() {
     const signupForm = document.querySelector("#signup_form")
-    const signupButton = document.querySelector("#login_signup_button")
+    const signupButton = document.querySelector("#signup_button")
     const name = document.querySelector("#name-signup")
     const lastName = document.querySelector('#lastname-signup')
     const email = document.querySelector('#email-signup')
@@ -44,6 +42,9 @@ function  createEventListenersSignupButton() {
     const usernameErrorMessage = document.querySelector('#username-error')
     const passwordErrorMessage = document.querySelector('#password-error')
     const generalErrorMessage = document.querySelector('#general-error')
+
+    // Create an instance of the userController to add and retrieve previously added users.
+    const userController = new UserController()
 
     signupForm.addEventListener("submit", function(event){
         event.preventDefault()
@@ -74,8 +75,12 @@ function  createEventListenersSignupButton() {
         }
 
         if (isInputsValid) {
+            // Retrieve the user list from the userController
+            const users = userController.getAllUsers()
+
             for (const user of users) {
-                if (user.email === email.value && email.value !== '') {
+                console.log(user)
+                if (user._email === email.value && email.value !== '') {
                     generalErrorMessage.textContent = "You already have an account!"
                     isInputsValid = false;
                     break;
@@ -83,7 +88,7 @@ function  createEventListenersSignupButton() {
                     generalErrorMessage.textContent = ''
                 }
 
-                if (user.username === username.value && username.value !== '') {
+                if (user._username === username.value && username.value !== '') {
                     generalErrorMessage.textContent = "The username is in use! Please enter another one."
                     isInputsValid = false;
                     break;
@@ -97,12 +102,9 @@ function  createEventListenersSignupButton() {
         if (isInputsValid) {
             const newUser =
                 new User(name.value, lastName.value, email.value, country.value, username.value, password.value)
-            const userController = new UserController()
 
             // Add the user.
             userController.addUser(newUser);
-
-            console.log(userController.getAllUsers())
         }
     }
 

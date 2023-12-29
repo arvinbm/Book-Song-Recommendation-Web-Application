@@ -52,7 +52,7 @@ body {
     text-shadow: 3px 3px 2px #312e2f;
 }
 
-#login_signup_button {
+#signup_button, #login_button {
     margin-left: 210px;
     padding: 15px 40px;
 }
