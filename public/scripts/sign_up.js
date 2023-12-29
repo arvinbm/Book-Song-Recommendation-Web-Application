@@ -1,4 +1,5 @@
 import {User} from "./user.js";
+import {UserController} from "./user_controller.js"
 
 // This lists holds the user objects.
 let users = []
@@ -92,10 +93,16 @@ function  createEventListenersSignupButton() {
             }
         }
 
+        // If the inputs pass the validation, add the user to the user list maintained by UserController.
         if (isInputsValid) {
-            users.push(new User(name.value, lastName.value, email.value,
-                country.value, username.value, password.value));
-            console.log("User has been created.");
+            const newUser =
+                new User(name.value, lastName.value, email.value, country.value, username.value, password.value)
+            const userController = new UserController()
+
+            // Add the user.
+            userController.addUser(newUser);
+
+            console.log(userController.getAllUsers())
         }
     }
 
