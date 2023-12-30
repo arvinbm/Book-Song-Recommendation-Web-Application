@@ -1,6 +1,7 @@
 import {User} from "./user.js";
 import {UserController} from "./user_controller.js"
 
+// Event listener for the eye icon next to the password field.
 function createEventListenersEye() {
 
     // Getting the element ids from the DOM.
@@ -46,6 +47,7 @@ function  createEventListenersSignupButton() {
     // Create an instance of the userController to add and retrieve previously added users.
     const userController = new UserController()
 
+    // Add event listeners for the back and sign up buttons.
     signupForm.addEventListener("submit", function(event){
         event.preventDefault()
     })
@@ -65,6 +67,7 @@ function  createEventListenersSignupButton() {
 
         let isInputsValid = true;
 
+        // Check if the required fields are not empty.
         for (const field of fields) {
             if (field.element.value === '') {
                 field.errorMessage.textContent = `${field.label} Is Required.`;
@@ -78,6 +81,7 @@ function  createEventListenersSignupButton() {
             // Retrieve the user list from the userController
             const users = userController.getAllUsers()
 
+            // Check if the provided username is not already taken, or if the user already has an account.
             for (const user of users) {
                 console.log(user)
                 if (user._email === email.value && email.value !== '') {
