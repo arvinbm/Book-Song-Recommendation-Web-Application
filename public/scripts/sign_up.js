@@ -78,12 +78,11 @@ function  createEventListenersSignupButton() {
         }
 
         if (isInputsValid) {
-            // Retrieve the user list from the userController
+            // Retrieve the user list from the userController.
             const users = userController.getAllUsers()
 
             // Check if the provided username is not already taken, or if the user already has an account.
             for (const user of users) {
-                console.log(user)
                 if (user._email === email.value && email.value !== '') {
                     generalErrorMessage.textContent = "You already have an account!"
                     isInputsValid = false;
