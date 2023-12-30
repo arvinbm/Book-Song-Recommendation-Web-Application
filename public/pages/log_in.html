@@ -12,6 +12,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script type="module" src="/scripts/log_in.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
     <script id="vertexShaderEarth" type="x-shader/x-vertex">
         precision highp float;
@@ -92,7 +93,8 @@
             </section>
             <section class="input">
                 <label for="password-login">Password *</label>
-                <input type="text" id="password-login" autocomplete="off">
+                <input type="password" id="password-login" autocomplete="off">
+                <i class="fa-solid fa-eye" id="eye-login" style="display: none"></i>
                 <span id="password-error-login" class="error-message"></span>
             </section>
             <span id="general-error-login" class="general-error-message"></span>

@@ -1,5 +1,31 @@
 import {UserController} from "./user_controller.js"
 
+// Event listener for the eye icon next to the password field.
+function createEventListenersEye() {
+    // Getting the element ids from the DOM.
+    const passwordInput = document.querySelector("#password-login")
+    const eye = document.querySelector("#eye-login")
+
+    // While the user is inserting a password display the eye icon.
+    passwordInput.addEventListener("focus", function() {
+        eye.style.display = 'inline'
+    })
+
+    // When the user is no longer interacting with the user hide the eye icon.
+    passwordInput.addEventListener("blur", function() {
+        if (passwordInput.value === '') {
+            eye.style.display = 'none'
+        }
+    })
+
+    // https://medium.com/@miguelznunez/html-css-javascript-how-to-show-hide-password-using-the-eye-icon-27f033bf84ad
+    eye.addEventListener("click", function(){
+        this.classList.toggle("fa-eye-slash")
+        const type = passwordInput.getAttribute("type") === "password" ? "text" : "password"
+        passwordInput.setAttribute("type", type)
+    })
+}
+
 function createEventListenerLoginButton() {
     const loginForm = document.querySelector("#login_form")
     const loginButton = document.querySelector("#login_button")
@@ -76,5 +102,6 @@ function createEventListenerLoginButton() {
 }
 
 window.onload = function() {
+    createEventListenersEye()
     createEventListenerLoginButton()
 }
