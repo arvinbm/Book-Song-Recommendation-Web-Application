@@ -73,6 +73,10 @@ body {
     text-shadow: 2px 2px 2px #727173;
 }
 
+#login_form_div {
+    margin-top: 130px;
+}
+
 input[type="text"], input[type="email"], input[type="password"], #country{
     padding: 5px;
     margin: 10px;

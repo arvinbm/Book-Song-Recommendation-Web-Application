@@ -107,7 +107,6 @@ function  createEventListenersSignupButton() {
             userController.addUser(newUser);
         }
     }
-
 }
 
 window.onload = function() {
