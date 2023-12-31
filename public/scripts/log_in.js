@@ -96,7 +96,8 @@ function createEventListenerLoginButton() {
         }
 
         if (isInputValid) {
-            console.log("FUCK YES. WE LOGGED IN.");
+            // Redirect the user to the decision_page.html
+            window.location.href = 'decision_page.html';
         }
     }
 }

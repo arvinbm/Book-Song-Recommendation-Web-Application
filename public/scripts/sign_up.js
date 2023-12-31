@@ -108,6 +108,10 @@ function  createEventListenersSignupButton() {
 
             // Add the user.
             userController.addUser(newUser);
+
+            // Redirect the user to the decision_page.html
+            window.location.href = 'decision_page.html';
+
         }
     }
 }
