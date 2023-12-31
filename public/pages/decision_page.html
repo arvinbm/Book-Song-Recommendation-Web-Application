@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/styles/styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script type="module" src="/scripts/decision_page.js"></script>
 
     <script id="vertexShaderEarth" type="x-shader/x-vertex">
         precision highp float;
@@ -83,12 +84,12 @@
 
 <main id="overlay_index">
     <article>
-        <h1><strong>Welcome</strong></h1>
-        <p>You Can Sign Up or Log In Below To See What Songs
-            <br>&<br>
-            Books Have Been Recommended In Countries Around The World.</p>
-        <button class="buttons" onclick="window.location.href = 'sign_up.html'">Sign Up</button>
-        <button class="buttons" onclick="window.location.href = 'log_in.html'">Log In</button>
+        <h1 id="welcome_element"><strong></strong></h1>
+        <p>Choose one of the options below.</p>
+        <button class="buttons">Recommend a Book</button>
+        <button class="buttons">Recommend a Song</button>
+        <button class="buttons">See Recommended Books</button>
+        <button class="buttons">See Recommended Songs</button>
     </article>
 </main>
 
