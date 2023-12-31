@@ -23,33 +23,20 @@ body {
     text-shadow: 2px 2px 2px #727173;
 }
 
-.logInButton {
+.buttons {
     background-color: lightslategrey;
     color: oldlace;
     padding: 5px 40px;
     border: none;
     border-radius: 60px;
     cursor: pointer;
+    margin-top: 50px;
+    transition: 1s ease-in-out;
+    text-shadow: 3px 3px 2px #312e2f;
+}
+
+#index_login_button {
     margin-left: 50px;
-    margin-top: 50px;
-    transition: 1s ease-in-out;
-    text-shadow: 3px 3px 2px #312e2f;
-}
-
-.logInButton:hover {
-    scale: 1.15;
-}
-
-.login-signup-buttons {
-    background-color: lightslategrey;
-    color: oldlace;
-    padding: 5px 40px;
-    border: none;
-    border-radius: 60px;
-    cursor: pointer;
-    margin-top: 50px;
-    transition: 1s ease-in-out;
-    text-shadow: 3px 3px 2px #312e2f;
 }
 
 #signup_button, #login_button {
@@ -63,7 +50,7 @@ body {
     padding: 15px 40px;
 }
 
-.login-signup-buttons:hover {
+.buttons:hover {
     scale: 1.15;
 }
 
