@@ -96,8 +96,8 @@ function createEventListenerLoginButton() {
         }
 
         if (isInputValid) {
-            // Redirect the user to the decision_page.html
-            window.location.href = 'decision_page.html';
+            // Redirect the user to the decision_page.html with username as a query parameter.
+            window.location.href = `decision_page.html?username=${encodeURIComponent(usernameLogin.value)}`;
         }
     }
 }
