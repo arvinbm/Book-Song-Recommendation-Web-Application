@@ -86,13 +86,17 @@
 <script type="module" src="/scripts/earth.js"></script>
 
 <main id="overlay_index">
-    <article>
+    <article id="decision_article">
         <h1 id="welcome_element"><strong></strong></h1>
         <p>Choose one of the options below.</p>
-        <button class="buttons">Recommend a Book</button>
-        <button class="buttons">Recommend a Song</button>
-        <button class="buttons">See Recommended Books</button>
-        <button class="buttons">See Recommended Songs</button>
+        <div>
+            <button class="buttons" id="decision_book_recommendation">Recommend a Book</button>
+            <button class="buttons" id="decision_song_recommendation">Recommend a Song</button>
+        </div>
+        <div>
+            <button class="buttons" id="decision_book_display">See Recommended Books</button>
+            <button class="buttons" id="decision_song_display">See Recommended Songs</button>
+        </div>
     </article>
 </main>
 
