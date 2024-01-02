@@ -115,6 +115,11 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
     align-items: center;
 }
 
+#decision_welcome_element {
+    font-size: larger;
+    margin-bottom: 40px;
+}
+
 #decision_book_recommendation, #decision_book_display {
     margin-right: 30px;
     width: 310px;
