@@ -54,7 +54,7 @@ body {
     scale: 1.15;
 }
 
-#signup_form, #login_form {
+#signup_form, #login_form, #book_form, #song_form {
     color: oldlace;
     user-select: none;
     text-shadow: 2px 2px 2px #727173;
