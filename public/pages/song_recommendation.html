@@ -87,24 +87,27 @@
 <script type="module" src="../scripts/earth.js"></script>
 
 <main id="overlay_signup">
-    <form id="song_form">
-        <section class="input">
-            <label for="song-name">Song Name * </label>
-            <input type="text" id="song-name" autocomplete="off">
-        </section>
-        <section class="input">
-            <label for="artist-name">Artist Name * </label>
-            <input type="text" id="artist-name" autocomplete="off">
-        </section>
-        <section class="input">
-            <label for="song-description">Description</label>
-            <input type="email" id="song-description" autocomplete="off">
-        </section>
-        <div id="buttons_div">
-            <button class="buttons">Recommend</button>
-            <button class="buttons">Back</button>
-        </div>
-    </form>
+    <div id="song_form_div">
+        <article id="song_article">Fill In The Required Form To Recommend a Song</article>
+        <form id="song_form">
+            <section class="input">
+                <label for="song-name">Song Name * </label>
+                <input type="text" id="song-name" autocomplete="off">
+            </section>
+            <section class="input">
+                <label for="artist-name">Artist Name * </label>
+                <input type="text" id="artist-name" autocomplete="off">
+            </section>
+            <section class="input">
+                <label for="song-description">Description</label>
+                <input type="email" id="song-description" autocomplete="off">
+            </section>
+            <div id="buttons_div">
+                <button class="buttons" id="song_recommend">Recommend</button>
+                <button class="buttons" id="back_button_song_rec">Back</button>
+            </div>
+        </form>
+    </div>
 </main>
 
 </body>
