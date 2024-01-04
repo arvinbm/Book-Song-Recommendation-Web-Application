@@ -1,7 +1,7 @@
 
 export class User {
+    // Methods
     constructor(_name, _last_name, _email, _country, _username, _password) {
-
         this._name = _name;
         this._last_name = _last_name;
         this._email = _email;
