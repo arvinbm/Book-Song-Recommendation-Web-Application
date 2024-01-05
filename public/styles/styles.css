@@ -105,6 +105,18 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
     outline: none;
 }
 
+#song-description, #book-description {
+    background-color: transparent;
+    border: 1px solid oldlace;
+    margin-top: 40px;
+    text-decoration: none;
+    padding: 10px;
+    color: lightslategrey;
+    text-shadow: 3px 3px 2px #727173;
+    outline: none;
+    vertical-align: top;
+}
+
 .input:hover {
     scale: 1.05;
 }
