@@ -34,14 +34,18 @@ function addEventListenersForButtons() {
     const songRecommendationButton = document.querySelector("#decision_song_recommendation");
     const bookDisplayButton = document.querySelector("#decision_book_display");
     const songDisplayButton = document.querySelector("#decision_song_display");
+    let isSongRecommendation;
 
     bookRecommendationButton.addEventListener("click", function() {
-        // console.log(username.value);
-        window.location.href = `book_recommendation.html?username=${encodeURIComponent(username)}`;
+        isSongRecommendation = false;
+        window.location.href = `book_recommendation.html?username=${encodeURIComponent(username)}
+            &isSongRecommendation=${isSongRecommendation}`;
     });
 
     songRecommendationButton.addEventListener("click", function() {
-        window.location.href = `song_recommendation.html?username=${encodeURIComponent(username)}`;
+        isSongRecommendation = true;
+        window.location.href = `book_recommendation.html?username=${encodeURIComponent(username)}
+            &isSongRecommendation=${isSongRecommendation}`;
     });
 
     bookDisplayButton.addEventListener("click", function() {
