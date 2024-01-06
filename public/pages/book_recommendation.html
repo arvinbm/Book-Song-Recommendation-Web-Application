@@ -88,16 +88,18 @@
 <script type="module" src="../scripts/earth.js"></script>
 
 <main id="overlay_signup">
+    <article id="book_article">Fill In The Required Form To Recommend a Book</article>
     <div id="book_form_div">
-        <article id="book_article">Fill In The Required Form To Recommend a Book</article>
         <form id="book_form">
             <section class="input">
                 <label for="book-name">Book Name * </label>
                 <input type="text" id="book-name" autocomplete="off">
+                <span  id="book-name-error-message" class="error-message"></span>
             </section>
             <section class="input">
                 <label for="author-name">Author Name * </label>
                 <input type="text" id="author-name" autocomplete="off">
+                <span id="book-author-error-message" class="error-message"></span>
             </section>
             <section class="input">
                 <label for="publication-year">Publication Year </label>
