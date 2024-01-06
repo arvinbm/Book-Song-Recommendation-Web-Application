@@ -88,16 +88,18 @@
 <script type="module" src="../scripts/earth.js"></script>
 
 <main id="overlay_signup">
+    <article id="song_article">Fill In The Required Form To Recommend a Song</article>
     <div id="song_form_div">
-        <article id="song_article">Fill In The Required Form To Recommend a Song</article>
         <form id="song_form">
             <section class="input">
                 <label for="song-name">Song Name * </label>
                 <input type="text" id="song-name" autocomplete="off">
+                <span id="song-name-error-message" class="error-message"></span>
             </section>
             <section class="input">
                 <label for="artist-name">Artist Name * </label>
                 <input type="text" id="artist-name" autocomplete="off">
+                <span id="artist-name-error-massage" class="error-message"></span>
             </section>
             <section class="input">
                 <label for="release-year">Release Year </label>

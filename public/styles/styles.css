@@ -24,9 +24,9 @@ body {
 }
 
 #book_article, #song_article {
-    margin-bottom: 40px;
     margin-left: 150px;
     margin-top: 40px;
+    position: absolute;
 }
 
 .buttons {
@@ -72,10 +72,17 @@ body {
     scale: 1.15;
 }
 
-#signup_form, #login_form, #book_form, #song_form {
+#signup_form, #login_form {
     color: oldlace;
     user-select: none;
     text-shadow: 2px 2px 2px #727173;
+}
+
+#book_form, #song_form {
+    color: oldlace;
+    user-select: none;
+    text-shadow: 2px 2px 2px #727173;
+    margin-top: 120px;
 }
 
 #login_form_div {

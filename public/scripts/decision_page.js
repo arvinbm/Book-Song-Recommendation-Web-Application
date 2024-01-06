@@ -44,7 +44,7 @@ function addEventListenersForButtons() {
 
     songRecommendationButton.addEventListener("click", function() {
         isSongRecommendation = true;
-        window.location.href = `book_recommendation.html?username=${encodeURIComponent(username)}
+        window.location.href = `song_recommendation.html?username=${encodeURIComponent(username)}
             &isSongRecommendation=${isSongRecommendation}`;
     });
 
