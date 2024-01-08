@@ -1,3 +1,21 @@
+
+function setEventListenerBackButtonSong(username) {
+    const songRecommendBackButton = document.querySelector("#back_button_song_rec");
+
+    // Add the event listeners.
+    songRecommendBackButton.addEventListener("click", function () {
+        window.location.href = `decision_page.html?username=${encodeURIComponent(username)}`
+    });
+}
+
+function setEventListenerBackButtonBook(username) {
+    const bookRecommendBackButton = document.querySelector("#back_button_book_rec");
+
+    bookRecommendBackButton.addEventListener("click", function () {
+        window.location.href = `decision_page.html?username=${encodeURIComponent(username)}`
+    });
+}
+
 function handleInputValiditySong() {
     const songName = document.querySelector("#song-name");
     const artistName = document.querySelector("#artist-name");
@@ -104,14 +122,22 @@ window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     const isSongRecommendationStr = urlParams.get('isSongRecommendation');
 
+    // Retrieve the username from the URL.
+    const username = urlParams.get('username').trim().replace(/\s+/g, ' ');
+
     if (isSongRecommendationStr === "true") {
+        // Set event listener for the back buttons.
+        setEventListenerBackButtonSong(username);
+
         // Add the new recommended song.
         handleRecommendedSong();
     }
 
     else {
+        // Set event listener for the back buttons.
+        setEventListenerBackButtonBook(username);
+
         // Add the new recommended book.
         handleRecommendedBook();
     }
-
 }

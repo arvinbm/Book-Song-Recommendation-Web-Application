@@ -4,14 +4,13 @@ import {UserController} from "./user_controller.js"
  This function dynamically inserts the name which corresponds
  to the account currently in use in the welcome element in the decision_page.html.
  **/
-let username = "";
 function insertDynamicName() {
     // Retrieve the welcome header element in decision_page.html.
     const welcome_element = document.querySelector("#decision_welcome_element");
 
     // Retrieve the username from the URL
     const urlParams = new URLSearchParams(window.location.search);
-    username = urlParams.get('username');
+    const username = urlParams.get('username').trim().replace(/\s+/g, ' ');
 
     const userController = new UserController();
     const users = userController.getAllUsers();
@@ -27,9 +26,10 @@ function insertDynamicName() {
     // Use the name to dynamically welcome the user.
     welcome_element.textContent = `Welcome ${associatedName}`;
 
+    return username
 }
 
-function addEventListenersForButtons() {
+function addEventListenersForButtons(username) {
     const bookRecommendationButton = document.querySelector("#decision_book_recommendation");
     const songRecommendationButton = document.querySelector("#decision_song_recommendation");
     const bookDisplayButton = document.querySelector("#decision_book_display");
@@ -58,6 +58,6 @@ function addEventListenersForButtons() {
 }
 
 window.onload = function() {
-    insertDynamicName();
-    addEventListenersForButtons();
+    const username = insertDynamicName();
+    addEventListenersForButtons(username);
 }
