@@ -1,3 +1,7 @@
+import {Song} from "./song.js"
+import {Book} from "./book.js"
+import {SongController} from "./song_controller.js"
+import {BookController} from "./book_controller.js"
 
 function setEventListenerBackButtonSong(username) {
     const songRecommendBackButton = document.querySelector("#back_button_song_rec");
@@ -38,7 +42,7 @@ function handleInputValiditySong() {
     return !(songName.value === "" || artistName.value === "");
 }
 
-function handleRecommendedSong() {
+function handleRecommendedSong(username) {
     const songName = document.querySelector("#song-name");
     const artistName = document.querySelector("#artist-name");
     const releaseYear = document.querySelector("#release-year");
@@ -61,7 +65,13 @@ function handleRecommendedSong() {
         validatedSuccessfully = handleInputValiditySong();
 
         if (validatedSuccessfully) {
-            // TODO
+            // Create an instance of the songController and Song to add the song.
+            const newSong = new Song(songName.value, artistName.value, username,
+                releaseYear.value, songDescription.value);
+            const songController = new SongController();
+
+            // Add the song.
+            songController.addSong(newSong);
         }
     }
 }
@@ -130,7 +140,7 @@ window.onload = function() {
         setEventListenerBackButtonSong(username);
 
         // Add the new recommended song.
-        handleRecommendedSong();
+        handleRecommendedSong(username);
     }
 
     else {
