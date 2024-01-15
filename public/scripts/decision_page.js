@@ -29,6 +29,47 @@ function insertDynamicName() {
     return username
 }
 
+/**
+ This function only shows a message to the user that their recommended song or book
+ has been successfully added to the storage, and that they can head to specified pages to see the lists
+ of the recommended books and songs.
+ **/
+function addTheGeneralMessage() {
+    const generalMessage = document.querySelector("#general-message");
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Check if songAdded and bookAdded parameters exist
+    if (urlParams.has('songAdded') && urlParams.has('bookAdded')) {
+        const songAdded = urlParams.get('songAdded').trim().replace(/\s+/g, ' ');
+        const bookAdded = urlParams.get('bookAdded').trim().replace(/\s+/g, ' ');
+
+        console.log(songAdded);
+        console.log(bookAdded);
+
+        // The case where the user added a song.
+        if (songAdded === "true") {
+            generalMessage.innerHTML = "Your Recommended Song Has Been Successfully Added!<br>" +
+                "Click On The See Recommended Songs Button For Display.";
+        }
+
+        // The case where the user added a book.
+        else if (bookAdded === "true") {
+            generalMessage.innerHTML = "Your Recommended Book Has Been Successfully Added!<br>" +
+                "Click On The See Recommended Books Button For Display.";
+        }
+
+        // The case where the back button was hit.
+        else {
+            console.log("We were here");
+            generalMessage.innerHTML = "";
+        }
+    }
+
+    else {
+        generalMessage.textContent = "";
+    }
+}
+
 function addEventListenersForButtons(username) {
     const bookRecommendationButton = document.querySelector("#decision_book_recommendation");
     const songRecommendationButton = document.querySelector("#decision_song_recommendation");
@@ -59,5 +100,6 @@ function addEventListenersForButtons(username) {
 
 window.onload = function() {
     const username = insertDynamicName();
+    addTheGeneralMessage();
     addEventListenersForButtons(username);
 }

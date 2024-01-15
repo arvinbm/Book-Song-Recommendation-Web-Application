@@ -3,20 +3,24 @@ import {Book} from "./book.js"
 import {SongController} from "./song_controller.js"
 import {BookController} from "./book_controller.js"
 
-function setEventListenerBackButtonSong(username) {
+function setEventListenerBackButtonSong(username, songAdded, bookAdded) {
     const songRecommendBackButton = document.querySelector("#back_button_song_rec");
 
     // Add the event listeners.
     songRecommendBackButton.addEventListener("click", function () {
-        window.location.href = `decision_page.html?username=${encodeURIComponent(username)}`
+        window.location.href = `decision_page.html?username=${encodeURIComponent(username)}
+        &songAdded=${encodeURIComponent(songAdded)}
+        &bookAdded=${encodeURIComponent(bookAdded)}`;
     });
 }
 
-function setEventListenerBackButtonBook(username) {
+function setEventListenerBackButtonBook(username, songAdded, bookAdded) {
     const bookRecommendBackButton = document.querySelector("#back_button_book_rec");
 
     bookRecommendBackButton.addEventListener("click", function () {
-        window.location.href = `decision_page.html?username=${encodeURIComponent(username)}`
+        window.location.href = `decision_page.html?username=${encodeURIComponent(username)}
+        &songAdded=${encodeURIComponent(songAdded)}
+        &bookAdded=${encodeURIComponent(bookAdded)}`;
     });
 }
 
@@ -42,7 +46,7 @@ function handleInputValiditySong() {
     return !(songName.value === "" || artistName.value === "");
 }
 
-function handleRecommendedSong(username) {
+function handleRecommendedSong(username, songAdded, bookAdded) {
     const songName = document.querySelector("#song-name");
     const artistName = document.querySelector("#artist-name");
     const releaseYear = document.querySelector("#release-year");
@@ -72,6 +76,12 @@ function handleRecommendedSong(username) {
 
             // Add the song.
             songController.addSong(newSong);
+
+            // Redirect the user back to the decision_page.html.
+            songAdded = true;
+            window.location.href = `decision_page.html?username=${encodeURIComponent(username)}
+            &songAdded=${encodeURIComponent(songAdded)}
+            &bookAdded=${encodeURIComponent(bookAdded)}`;
         }
     }
 }
@@ -98,7 +108,7 @@ function handleInputValidityBook() {
     return !(bookName.value === "" || authorName.value === "");
 }
 
-function handleRecommendedBook(username) {
+function handleRecommendedBook(username, songAdded, bookAdded) {
     const bookName = document.querySelector("#book-name");
     const authorName = document.querySelector("#author-name");
     const publicationYear = document.querySelector("#publication-year");
@@ -127,12 +137,20 @@ function handleRecommendedBook(username) {
 
             // Add the book.
             bookController.addBook(newBook);
+
+            // Redirect the user back to the decision_page.html.
+            bookAdded = true;
+            window.location.href = `decision_page.html?username=${encodeURIComponent(username)}
+            &songAdded=${encodeURIComponent(songAdded)}
+            &bookAdded=${encodeURIComponent(bookAdded)}`;
         }
     }
-
 }
 
 window.onload = function() {
+    let songAdded = false;
+    let bookAdded = false;
+
     // Determine if the user clicked on the book or song recommendation.
     const urlParams = new URLSearchParams(window.location.search);
     const isSongRecommendationStr = urlParams.get('isSongRecommendation');
@@ -142,17 +160,17 @@ window.onload = function() {
 
     if (isSongRecommendationStr === "true") {
         // Set event listener for the back buttons.
-        setEventListenerBackButtonSong(username);
+        setEventListenerBackButtonSong(username, songAdded, bookAdded);
 
         // Add the new recommended song.
-        handleRecommendedSong(username);
+        handleRecommendedSong(username, songAdded, bookAdded);
     }
 
     else {
         // Set event listener for the back buttons.
-        setEventListenerBackButtonBook(username);
+        setEventListenerBackButtonBook(username, songAdded, bookAdded);
 
         // Add the new recommended book.
-        handleRecommendedBook(username);
+        handleRecommendedBook(username, songAdded, bookAdded);
     }
 }
