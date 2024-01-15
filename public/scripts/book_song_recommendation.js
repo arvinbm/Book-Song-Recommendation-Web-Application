@@ -98,7 +98,7 @@ function handleInputValidityBook() {
     return !(bookName.value === "" || authorName.value === "");
 }
 
-function handleRecommendedBook() {
+function handleRecommendedBook(username) {
     const bookName = document.querySelector("#book-name");
     const authorName = document.querySelector("#author-name");
     const publicationYear = document.querySelector("#publication-year");
@@ -121,7 +121,12 @@ function handleRecommendedBook() {
         validatedSuccessfully = handleInputValidityBook();
 
         if (validatedSuccessfully) {
-            // TODO
+            const newBook = new Book(bookName.value, authorName.value, username,
+                publicationYear.value, bookDescription.value);
+            const bookController = new BookController();
+
+            // Add the book.
+            bookController.addBook(newBook);
         }
     }
 
@@ -148,6 +153,6 @@ window.onload = function() {
         setEventListenerBackButtonBook(username);
 
         // Add the new recommended book.
-        handleRecommendedBook();
+        handleRecommendedBook(username);
     }
 }
