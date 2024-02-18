@@ -76,6 +76,7 @@ function addEventListenersForButtons(username) {
     const bookDisplayButton = document.querySelector("#decision_book_display");
     const songDisplayButton = document.querySelector("#decision_song_display");
     let isSongRecommendation;
+    let isSongDisplay;
 
     bookRecommendationButton.addEventListener("click", function() {
         isSongRecommendation = false;
@@ -90,11 +91,11 @@ function addEventListenersForButtons(username) {
     });
 
     bookDisplayButton.addEventListener("click", function() {
-        // TODO
+        isSongDisplay = false;
     });
 
     songDisplayButton.addEventListener("click", function() {
-        // TODO
+        isSongDisplay = true;
     });
 }
 
