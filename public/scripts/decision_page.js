@@ -92,10 +92,14 @@ function addEventListenersForButtons(username) {
 
     bookDisplayButton.addEventListener("click", function() {
         isSongDisplay = false;
+        window.location.href = `book_display.html?username=${encodeURIComponent(username)}
+            &isSongRecommendation=${isSongRecommendation}`;
     });
 
     songDisplayButton.addEventListener("click", function() {
         isSongDisplay = true;
+        window.location.href = `song_display.html?username=${encodeURIComponent(username)}
+            &isSongRecommendation=${isSongRecommendation}`;
     });
 }
 
