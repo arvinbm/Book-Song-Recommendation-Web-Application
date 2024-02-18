@@ -39,6 +39,16 @@ app.get('/song_recommendation.html', (req, res) => {
     res.sendFile(__dirname + '/public/pages/song_recommendation.html');
 });
 
+// Define a route to serve the "book_display.html" file
+app.get('/book_display.html', (req, res) => {
+    res.sendFile(__dirname + '/public/pages/book_display.html');
+});
+
+// Define a route to serve the "song_display.html" file
+app.get('/song_display.html', (req, res) => {
+    res.sendFile(__dirname + '/public/pages/song_display.html');
+});
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
