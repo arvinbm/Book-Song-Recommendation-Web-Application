@@ -138,6 +138,57 @@ function addBackgroundStars() {
     sceneEarth.add(starPoint);
 }
 
+function addCountryMeshes() {
+    // 1. Load GeoJSON data using D3.js
+    d3.json('../files/countries.geojson').then(function(data) {
+        // 2. Create Three.js meshes for countries
+        data.features.forEach(function (feature) {
+            // Check the geometry type
+            if (feature.geometry.type === 'MultiPolygon') {
+                // Iterate over each polygon in the MultiPolygon
+                feature.geometry.coordinates.forEach(function (polygonCoords) {
+                    createMeshFromPolygon(polygonCoords);
+                });
+            }
+        });
+    });
+
+    // Function to create a Three.js mesh from a polygon coordinates array
+    function createMeshFromPolygon(polygonCoords) {
+        // Create geometry for the country
+        const geometry = new THREE.BufferGeometry();
+
+        // Flatten the coordinates array
+        const flatCoords = polygonCoords[0].reduce((acc, val) => acc.concat(val), []);
+
+        // Convert longitude-latitude to Cartesian coordinates
+        const vertices = new Float32Array(flatCoords.length);
+        for (let i = 0; i < flatCoords.length; i += 2) {
+            vertices[i] = flatCoords[i];
+            vertices[i + 1] = flatCoords[i + 1];
+            vertices[i + 2] = 0; // Set z-coordinate to 0 for simplicity
+        }
+
+        // Set positions in the geometry
+        geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+
+        // Convert geometry to mesh
+        const material = new THREE.LineBasicMaterial({color: 0xffffff}); // Customize material as needed
+        const mesh = new THREE.Line(geometry, material);
+
+        // Add mesh to scene
+        sceneEarth.add(mesh);
+    }
+}
+
+function determineCountry() {
+    // Using the geoJson file, creating meshes for each country and adding the meshes into the scene.
+    addCountryMeshes();
+
+    // Adding the rayCaster.
+
+}
+
 function render() {
     requestAnimationFrame(render);
     rendererEarth.render(sceneEarth, cameraEarth);
@@ -168,6 +219,9 @@ function setupEarth() {
 
     // Adding background stars.
     addBackgroundStars();
+
+    // Determine the county which was clicked.
+    determineCountry();
 
     render();
 }
