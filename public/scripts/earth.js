@@ -152,11 +152,11 @@ function fetchData() {
 
                 // Populate the country names.
                 const countryName = properties.ADMIN;
-                countryNames.push(countryName);
 
                 if (geometry.type === "MultiPolygon") {
                     geometry.coordinates.forEach(function(polygon) {
                         polygonCoords.push(polygon[0]);
+                        countryNames.push(countryName);
                     });
                 }
             });
@@ -214,18 +214,47 @@ function createMeshFromPolygon(polygonCoords, countryNames) {
     });
 }
 
+function addTheRayCaster() {
+    let rayCaster = new THREE.Raycaster();
+    let mouseVector = new THREE.Vector2();
+
+    // Add click event listener
+    rendererEarth.domElement.addEventListener('contextmenu', onMouseClick, false);
+
+    function onMouseClick(event) {
+        event.preventDefault();
+
+        // Calculate mouse position in normalized device coordinates (NDC)
+        mouseVector.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouseVector.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        // Update the picking ray with the camera and mouse position
+        rayCaster.setFromCamera(mouseVector, cameraEarth);
+
+        // Calculate intersections
+        const intersects = rayCaster.intersectObjects(sphere.children, true);
+
+        // If there are intersections, log the country name
+        if (intersects.length > 0) {
+            console.log("Clicked on country:", intersects[0].object.userData.countryName);
+        }
+    }
+}
+
 function determineCountry() {
 
     fetchData().then(([polygonCoords, countryNames]) => {
         // After extracting the data create THREE.js meshes using the coordinates,
         // and add them to the sphere representing the earth.
         createMeshFromPolygon(polygonCoords, countryNames);
+
+        // Adding the rayCaster.
+        addTheRayCaster();
+
     }).catch(error => {
         // Handle errors
         console.error('Error fetching data:', error);
     });
-
-    // Adding the rayCaster.
 
 }
 
@@ -234,7 +263,7 @@ function render() {
     rendererEarth.render(sceneEarth, cameraEarth);
 
     // Add a constant rotation to the earth.
-    sphere.rotation.y += 0.0008;
+    sphere.rotation.y += 0.0003;
 
     // Add movement to the earth based on the mouse coordinates.
     group.rotation.y = mouse.y * 0.002;
