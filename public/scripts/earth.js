@@ -142,11 +142,17 @@ function fetchData() {
     return new Promise((resolve, reject) => {
         d3.json("../files/countries.geojson").then(function(data) {
             const polygonCoords = [];
+            const countryNames = [];
 
             const features = data.features;
 
             features.forEach(function(feature) {
                 const geometry = feature.geometry;
+                const properties = feature.properties;
+
+                // Populate the country names.
+                const countryName = properties.ADMIN;
+                countryNames.push(countryName);
 
                 if (geometry.type === "MultiPolygon") {
                     geometry.coordinates.forEach(function(polygon) {
@@ -155,7 +161,7 @@ function fetchData() {
                 }
             });
 
-            resolve(polygonCoords);
+            resolve([polygonCoords, countryNames]);
         }).catch(error => {
             reject(error);
         });
@@ -179,7 +185,10 @@ function latLongToVector3(lon, lat, radius) {
     return new THREE.Vector3(x, y, z);
 }
 
-function createMeshFromPolygon(polygonCoords) {
+function createMeshFromPolygon(polygonCoords, countryNames) {
+    // Counter to go through countryNames array to add the country name to the corresponding mesh.
+    let i = 0;
+
     polygonCoords.forEach(polygon => {
         const flatCoords = polygon.reduce((acc, val) => {
             const vertex = latLongToVector3(val[0], val[1], 2);
@@ -189,8 +198,6 @@ function createMeshFromPolygon(polygonCoords) {
         // Create buffer attributes
         const positions = new Float32Array(flatCoords);
 
-        console.log(positions);
-
         // Create buffer geometry
         const geometry = new THREE.BufferGeometry();
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -199,16 +206,20 @@ function createMeshFromPolygon(polygonCoords) {
         const material = new THREE.LineBasicMaterial({ color: 0xffffff, depthTest: true});
         const mesh = new THREE.Line(geometry, material);
 
+        // Add the country name to the corresponding mesh.
+        mesh.userData.countryName = countryNames[i];
+        i++;
+
         sphere.add(mesh);
     });
 }
 
 function determineCountry() {
 
-    fetchData().then(polygonCoords => {
+    fetchData().then(([polygonCoords, countryNames]) => {
         // After extracting the data create THREE.js meshes using the coordinates,
         // and add them to the sphere representing the earth.
-        createMeshFromPolygon(polygonCoords);
+        createMeshFromPolygon(polygonCoords, countryNames);
     }).catch(error => {
         // Handle errors
         console.error('Error fetching data:', error);
