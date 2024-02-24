@@ -1,5 +1,5 @@
 body {
-    font-family: Didot, serif;
+    font-family: "Helvetica Neue", sans-serif;
     font-size: larger;
     overflow: hidden;
 }
@@ -39,6 +39,7 @@ body {
     margin-top: 50px;
     transition: 1s ease-in-out;
     text-shadow: 3px 3px 2px #312e2f;
+    font-size: 18px;
 }
 
 #index_login_button {
@@ -48,24 +49,28 @@ body {
 #signup_button, #login_button {
     margin-left: 210px;
     padding: 15px 40px;
+    font-size: 18px;
 }
 
 #book_recommend, #song_recommend {
     width: 190px;
     margin-left: 160px;
     padding: 15px 40px;
+    font-size: 18px;
 }
 
 #back_button {
     width: 145px;
     margin-left: 50px;
     padding: 15px 40px;
+    font-size: 18px;
 }
 
 #back_button_book_rec, #back_button_song_rec {
     width: 190px;
     margin-left: 50px;
     padding: 15px 40px;
+    font-size: 18px;
 }
 
 .buttons:hover {
