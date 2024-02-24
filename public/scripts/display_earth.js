@@ -1,3 +1,11 @@
+/**
+ * This JavaScript file has an additional feature of indicating country borders by
+ * extracting data from the countries.geojson file, and the functionality where the
+ * counties are clickable using a raycatser for song and book display based on a specific
+ * location.
+ *
+ * This file is used for the song and book display only.
+ */
 
 let sceneEarth;
 let cameraEarth;
@@ -138,6 +146,126 @@ function addBackgroundStars() {
     sceneEarth.add(starPoint);
 }
 
+function fetchData() {
+    return new Promise((resolve, reject) => {
+        d3.json("../files/countries.geojson").then(function(data) {
+            const polygonCoords = [];
+            const countryNames = [];
+
+            const features = data.features;
+
+            features.forEach(function(feature) {
+                const geometry = feature.geometry;
+                const properties = feature.properties;
+
+                // Populate the country names.
+                const countryName = properties.ADMIN;
+
+                if (geometry.type === "MultiPolygon") {
+                    geometry.coordinates.forEach(function(polygon) {
+                        polygonCoords.push(polygon[0]);
+                        countryNames.push(countryName);
+                    });
+                }
+            });
+
+            resolve([polygonCoords, countryNames]);
+        }).catch(error => {
+            reject(error);
+        });
+    });
+}
+
+/** Converts longitude and latitude to a cartesian coordinates on a sphere of radius 2
+ * @param lon
+ * @param lat
+ * @param radius
+ * @returns {Vector3}
+ */
+function latLongToVector3(lon, lat, radius) {
+    const phi = (90 - lat) * Math.PI / 180;
+    const theta = (lon + 180) * Math.PI / 180;
+
+    const x = -radius * Math.sin(phi) * Math.cos(theta);
+    const y = radius * Math.cos(phi);
+    const z = radius * Math.sin(phi) * Math.sin(theta);
+
+    return new THREE.Vector3(x, y, z);
+}
+
+function createMeshFromPolygon(polygonCoords, countryNames) {
+    // Counter to go through countryNames array to add the country name to the corresponding mesh.
+    let i = 0;
+
+    polygonCoords.forEach(polygon => {
+        const flatCoords = polygon.reduce((acc, val) => {
+            const vertex = latLongToVector3(val[0], val[1], 2);
+            return acc.concat(vertex.toArray());
+        }, []);
+
+        // Create buffer attributes
+        const positions = new Float32Array(flatCoords);
+
+        // Create buffer geometry
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        // Create the mesh
+        const material = new THREE.LineBasicMaterial({ color: 0xffffff, depthTest: true});
+        const mesh = new THREE.Line(geometry, material);
+
+        // Add the country name to the corresponding mesh.
+        mesh.userData.countryName = countryNames[i];
+        i++;
+
+        sphere.add(mesh);
+    });
+}
+
+function addTheRayCaster() {
+    let rayCaster = new THREE.Raycaster();
+    let mouseVector = new THREE.Vector2();
+
+    // Add click event listener
+    rendererEarth.domElement.addEventListener('contextmenu', onMouseClick, false);
+
+    function onMouseClick(event) {
+        event.preventDefault();
+
+        // Calculate mouse position in normalized device coordinates (NDC)
+        mouseVector.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouseVector.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        // Update the picking ray with the camera and mouse position
+        rayCaster.setFromCamera(mouseVector, cameraEarth);
+
+        // Calculate intersections
+        const intersects = rayCaster.intersectObjects(sphere.children, true);
+
+        // If there are intersections, log the country name
+        if (intersects.length > 0) {
+            console.log("Clicked on country:", intersects[0].object.userData.countryName);
+        }
+    }
+}
+
+function determineCountry() {
+
+    fetchData().then(([polygonCoords, countryNames]) => {
+        // After extracting the data create THREE.js meshes using the coordinates,
+        // and add them to the sphere representing the earth.
+        createMeshFromPolygon(polygonCoords, countryNames);
+
+        // Adding the rayCaster.
+        addTheRayCaster();
+
+    }).catch(error => {
+        // Handle errors
+        console.error('Error fetching data:', error);
+    });
+
+}
+
 function render() {
     requestAnimationFrame(render);
     rendererEarth.render(sceneEarth, cameraEarth);
@@ -168,6 +296,9 @@ function setupEarth() {
 
     // Adding background stars.
     addBackgroundStars();
+
+    // Determine the county which was clicked.
+    determineCountry();
 
     render();
 }
