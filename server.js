@@ -49,6 +49,11 @@ app.get('/song_display.html', (req, res) => {
     res.sendFile(__dirname + '/public/pages/song_display.html');
 });
 
+// app.get('scripts/book_song_display.js', (req, res) => {
+//     res.set('Content-Type', 'application/javascript');
+//     res.sendFile(__dirname + '/public/scripts/book_song_display.js');
+// });
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });

@@ -1,11 +1,15 @@
 /**
  * This JavaScript file has an additional feature of indicating country borders by
  * extracting data from the countries.geojson file, and the functionality where the
- * counties are clickable using a raycatser for song and book display based on a specific
- * location.
+ * counties are clickable using a ray caster for song and book display based on a
+ * specific location.
  *
  * This file is used for the song and book display only.
  */
+
+// Import the function that must be invoked when a country is clicked on the Earth.
+// Used when setting up the ray caster.
+import displaySongsBooks from "./book_song_display.js";
 
 let sceneEarth;
 let cameraEarth;
@@ -244,7 +248,10 @@ function addTheRayCaster() {
 
         // If there are intersections, log the country name
         if (intersects.length > 0) {
-            console.log("Clicked on country:", intersects[0].object.userData.countryName);
+            const countryName = intersects[0].object.userData.countryName;
+
+            // Invoke the displaySongsBooks from book_song_display.js to modify the table.
+            displaySongsBooks(countryName);
         }
     }
 }
