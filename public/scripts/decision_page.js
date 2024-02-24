@@ -43,9 +43,6 @@ function addTheGeneralMessage() {
         const songAdded = urlParams.get('songAdded').trim().replace(/\s+/g, ' ');
         const bookAdded = urlParams.get('bookAdded').trim().replace(/\s+/g, ' ');
 
-        console.log(songAdded);
-        console.log(bookAdded);
-
         // The case where the user added a song.
         if (songAdded === "true") {
             generalMessage.innerHTML = "Your Recommended Song Has Been Successfully Added!<br>" +
@@ -60,7 +57,6 @@ function addTheGeneralMessage() {
 
         // The case where the back button was hit.
         else {
-            console.log("We were here");
             generalMessage.innerHTML = "";
         }
     }
@@ -93,13 +89,13 @@ function addEventListenersForButtons(username) {
     bookDisplayButton.addEventListener("click", function() {
         isSongDisplay = false;
         window.location.href = `book_display.html?username=${encodeURIComponent(username)}
-            &isSongRecommendation=${isSongRecommendation}`;
+            &isSongDisplay=${isSongDisplay}`;
     });
 
     songDisplayButton.addEventListener("click", function() {
         isSongDisplay = true;
         window.location.href = `song_display.html?username=${encodeURIComponent(username)}
-            &isSongRecommendation=${isSongRecommendation}`;
+            &isSongDisplay=${isSongDisplay}`;
     });
 }
 
