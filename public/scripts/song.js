@@ -1,10 +1,11 @@
 
 export class Song {
     // Methods
-    constructor(_song_name, _artist, _recommending_user, _release_year, _description) {
+    constructor(_song_name, _artist, _recommending_user, _recommending_user_country, _release_year, _description) {
         this._song_name = _song_name;
         this._artist = _artist;
-        this._recommeding_user = _recommending_user;
+        this._recommending_user = _recommending_user;
+        this._recommending_user_country = _recommending_user_country;
         this._release_year = _release_year;
         this._description = _description;
     }
@@ -18,7 +19,11 @@ export class Song {
     }
 
     get recommendingUser() {
-        return this._recommeding_user;
+        return this._recommending_user;
+    }
+
+    get recommendingUserCountry() {
+        return this._recommending_user_country;
     }
 
     get releaseYear() {
