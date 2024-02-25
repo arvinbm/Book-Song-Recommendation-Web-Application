@@ -2,6 +2,19 @@ import {Song} from "./song.js"
 import {Book} from "./book.js"
 import {SongController} from "./song_controller.js"
 import {BookController} from "./book_controller.js"
+import {UserController} from "./user_controller.js";
+
+function getUserCountry(username) {
+    // Get the list of all the users.
+    const userController = new UserController();
+    const userList = userController.getAllUsers();
+
+    for (const user of userList) {
+        if (user._username === username) {
+            return user._country;
+        }
+    }
+}
 
 function setEventListenerBackButtonSong(username, songAdded, bookAdded) {
     const songRecommendBackButton = document.querySelector("#back_button_song_rec");
@@ -69,8 +82,13 @@ function handleRecommendedSong(username, songAdded, bookAdded) {
         validatedSuccessfully = handleInputValiditySong();
 
         if (validatedSuccessfully) {
+            // Get the user country based on their username.
+            const userCountry = getUserCountry(username);
+
+            console.log(userCountry);
+
             // Create an instance of the songController and Song to add the song.
-            const newSong = new Song(songName.value, artistName.value, username,
+            const newSong = new Song(songName.value, artistName.value, username, userCountry,
                 releaseYear.value, songDescription.value);
             const songController = new SongController();
 
@@ -131,7 +149,10 @@ function handleRecommendedBook(username, songAdded, bookAdded) {
         validatedSuccessfully = handleInputValidityBook();
 
         if (validatedSuccessfully) {
-            const newBook = new Book(bookName.value, authorName.value, username,
+            // Get the user country based on their username.
+            const userCountry = getUserCountry(username);
+
+            const newBook = new Book(bookName.value, authorName.value, username, userCountry,
                 publicationYear.value, bookDescription.value);
             const bookController = new BookController();
 
