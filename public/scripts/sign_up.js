@@ -77,32 +77,35 @@ function  createEventListenersSignupButton() {
             }
         }
 
+        // Retrieve the user list from the userController.
+        const users = userController.getAllUsers()
+
         if (isInputsValid) {
-            // Retrieve the user list from the userController.
-            const users = userController.getAllUsers()
+            // To handle the first user that is signing up.
+            if (users !== null) {
+                // Check if the provided username is not already taken, or if the user already has an account.
+                for (const user of users) {
+                    if (user._email === email.value && email.value !== '') {
+                        generalErrorMessage.textContent = "You already have an account!"
+                        isInputsValid = false;
+                        break;
+                    } else {
+                        generalErrorMessage.textContent = ''
+                    }
 
-            // Check if the provided username is not already taken, or if the user already has an account.
-            for (const user of users) {
-                if (user._email === email.value && email.value !== '') {
-                    generalErrorMessage.textContent = "You already have an account!"
-                    isInputsValid = false;
-                    break;
-                } else {
-                    generalErrorMessage.textContent = ''
-                }
-
-                if (user._username === username.value && username.value !== '') {
-                    generalErrorMessage.textContent = "The username is in use! Please enter another one."
-                    isInputsValid = false;
-                    break;
-                } else {
-                    generalErrorMessage.textContent = ''
+                    if (user._username === username.value && username.value !== '') {
+                        generalErrorMessage.textContent = "The username is in use! Please enter another one."
+                        isInputsValid = false;
+                        break;
+                    } else {
+                        generalErrorMessage.textContent = ''
+                    }
                 }
             }
         }
 
         // If the inputs pass the validation, add the user to the user list maintained by UserController.
-        if (isInputsValid) {
+        if (isInputsValid && users !== null) {
             const newUser =
                 new User(name.value, lastName.value, email.value, country.value, username.value, password.value)
 
@@ -111,7 +114,18 @@ function  createEventListenersSignupButton() {
 
             // Redirect the user to the decision_page.html with username as a query parameter.
             window.location.href = `decision_page.html?username=${encodeURIComponent(username.value)}`;
+        }
 
+        // The case of the first user signing up.
+        if (isInputsValid && users === null) {
+            const newUser =
+                new User(name.value, lastName.value, email.value, country.value, username.value, password.value)
+
+            // Add the user.
+            userController.addUser(newUser);
+
+            // Redirect the user to the decision_page.html with username as a query parameter.
+            window.location.href = `decision_page.html?username=${encodeURIComponent(username.value)}`;
         }
     }
 }

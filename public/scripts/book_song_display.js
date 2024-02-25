@@ -22,7 +22,12 @@ export default function displaySongsBooks(clickedCountry) {
         const songController = new SongController();
         const songList = songController.getAllSongs();
 
-        console.log(songList);
+        // Populate the table with the songs corresponding to the country that was clicked.
+        for (const song of songList) {
+            if (song._recommending_user_country.toLowerCase() === clickedCountry.toLowerCase()) {
+                console.log("Going to populate the table with the song");
+            }
+        }
     }
 
     else {
@@ -32,7 +37,12 @@ export default function displaySongsBooks(clickedCountry) {
         const bookController = new BookController();
         const bookList = bookController.getAllBooks();
 
-        console.log(bookList);
+        // Populate the table with the books corresponding to the country that was clicked.
+        for (const book of bookList) {
+            if (book._recommending_user_country.toLowerCase() === clickedCountry.toLowerCase()) {
+                console.log("Going to populate the table with the book");
+            }
+        }
     }
 }
 

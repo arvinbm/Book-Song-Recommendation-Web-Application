@@ -14,6 +14,13 @@ export class UserController {
     }
 
     getAllUsers() {
-        return JSON.parse(localStorage.userArray);
+        const storedData = localStorage.getItem('userArray');
+
+        if (storedData) {
+            return JSON.parse(storedData);
+        } else {
+            console.error('No data found in localStorage.userArray');
+            return null;
+        }
     }
 }
