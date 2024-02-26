@@ -11,7 +11,7 @@ body {
 
 #overlay_index {
     position: absolute;
-    top: 130px;
+    top: 100px;
     left: 90px;
 }
 
@@ -173,5 +173,27 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 
 #decision_song_recommendation, #decision_song_display {
     width: 310px;
+}
+
+#dynamic_table_songs, #dynamic_table_books {
+    margin-top: 20px;
+    width: 100%;
+}
+
+#dynamic_table_songs tr,
+#dynamic_table_books tr {
+    border: 1px solid white;
+    text-align: left;
+}
+
+#dynamic_table_songs th, #dynamic_table_songs td,
+#dynamic_table_books th, #dynamic_table_books td {
+    padding: 15px;
+}
+
+#table_container {
+    max-height: 550px;
+    overflow: auto;
+    margin-top: 10px;
 }
 
