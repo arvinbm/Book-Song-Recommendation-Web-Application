@@ -178,6 +178,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 #dynamic_table_songs, #dynamic_table_books {
     margin-top: 20px;
     width: 100%;
+    display: none;
 }
 
 #dynamic_table_songs tr,

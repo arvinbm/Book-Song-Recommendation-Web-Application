@@ -52,6 +52,9 @@ export default function displaySongsBooks(clickedCountry) {
                 songNameCell.innerHTML = cellContent;
                 newRow.appendChild(songNameCell);
                 songTable.appendChild(newRow);
+
+                // Make the table visible.
+                songTable.style.display = "table";
             }
 
             // The case where the country clicked was United States.
@@ -78,6 +81,8 @@ export default function displaySongsBooks(clickedCountry) {
                 songNameCell.innerHTML = cellContent;
                 newRow.appendChild(songNameCell);
                 songTable.appendChild(newRow);
+
+                songTable.style.display = "table";
             }
         }
     }
@@ -113,6 +118,8 @@ export default function displaySongsBooks(clickedCountry) {
                 bookNameCell.innerHTML = cellContent;
                 newRow.appendChild(bookNameCell);
                 bookTable.appendChild(newRow);
+
+                bookTable.style.display = "table";
             }
 
             // The case of United of States.
@@ -139,6 +146,8 @@ export default function displaySongsBooks(clickedCountry) {
                 bookNameCell.innerHTML = cellContent;
                 newRow.appendChild(bookNameCell);
                 bookTable.appendChild(newRow);
+
+                songTable.style.display = "table";
             }
         }
     }
