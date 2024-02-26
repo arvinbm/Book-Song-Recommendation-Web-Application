@@ -10,6 +10,8 @@ export default function displaySongsBooks(clickedCountry) {
     const urlParams = new URLSearchParams(window.location.search);
     const isSongDisplayStr = urlParams.get('isSongDisplay');
 
+    console.log(clickedCountry);
+
     // Get the table ids.
     const bookTable = document.querySelector("#dynamic_table_books");
     const songTable = document.querySelector("#dynamic_table_songs");
@@ -27,6 +29,12 @@ export default function displaySongsBooks(clickedCountry) {
             if (song._recommending_user_country.toLowerCase() === clickedCountry.toLowerCase()) {
                 console.log("Going to populate the table with the song");
             }
+
+            // The case where the country clicked was United States.
+            if (song._recommending_user_country.toLowerCase() === "usa"
+                && clickedCountry.toLowerCase() === "united states of america") {
+                console.log("Going to recommend US song!");
+            }
         }
     }
 
@@ -41,6 +49,12 @@ export default function displaySongsBooks(clickedCountry) {
         for (const book of bookList) {
             if (book._recommending_user_country.toLowerCase() === clickedCountry.toLowerCase()) {
                 console.log("Going to populate the table with the book");
+            }
+
+            // The case of United of States.
+            if (book._recommending_user_country.toLowerCase() === "usa"
+                && clickedCountry.toLowerCase() === "united states of america") {
+                console.log("Going to recommend US books!");
             }
         }
     }
