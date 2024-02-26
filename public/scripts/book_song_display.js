@@ -42,7 +42,7 @@ export default function displaySongsBooks(clickedCountry) {
 
                 // Add the year of release and the description if the user provided them.
                 if (song._release_year !== null) {
-                    cellContent += `<br> Release Year: ${song._release_year}`;
+                    cellContent += `<br> Year Of Release: ${song._release_year}`;
                 }
 
                 if (song._description !== null) {
@@ -68,7 +68,7 @@ export default function displaySongsBooks(clickedCountry) {
 
                 // Add the year of release and the description if the user provided them.
                 if (song._release_year !== null) {
-                    cellContent += `<br> Release Year: ${song._release_year}`;
+                    cellContent += `<br> Year Of Release: ${song._release_year}`;
                 }
 
                 if (song._description !== null) {
@@ -92,13 +92,53 @@ export default function displaySongsBooks(clickedCountry) {
         // Populate the table with the books corresponding to the country that was clicked.
         for (const book of bookList) {
             if (book._recommending_user_country.toLowerCase() === clickedCountry.toLowerCase()) {
-                console.log("Going to populate the table with the book");
+                // Create a new row in the table.
+                const newRow = document.createElement("tr");
+
+                const bookNameCell = document.createElement("td");
+                let cellContent = `Book Name: ${book._book_name} <br> 
+                      Book Name: ${book._author} <br> 
+                      Recommended By: ${book._recommending_user} <br> 
+                      Country Of The Recommending User: ${book._recommending_user_country}`;
+
+                // Add the year of release and the description if the user provided them.
+                if (book._publish_year !== null) {
+                    cellContent += `<br> Year Of Publish: ${book._publish_year}`;
+                }
+
+                if (book._description !== null) {
+                    cellContent += `<br> Description: ${book._description}`;
+                }
+
+                bookNameCell.innerHTML = cellContent;
+                newRow.appendChild(bookNameCell);
+                bookTable.appendChild(newRow);
             }
 
             // The case of United of States.
             if (book._recommending_user_country.toLowerCase() === "usa"
                 && clickedCountry.toLowerCase() === "united states of america") {
-                console.log("Going to recommend US books!");
+                // Create a new row in the table.
+                const newRow = document.createElement("tr");
+
+                const bookNameCell = document.createElement("td");
+                let cellContent = `Book Name: ${book._book_name} <br> 
+                      Author Name: ${book._author} <br> 
+                      Recommended By: ${book._recommending_user} <br> 
+                      Country Of The Recommending User: ${book._recommending_user_country}`;
+
+                // Add the year of release and the description if the user provided them.
+                if (book._publish_year !== null) {
+                    cellContent += `<br> Year Of Publish: ${book._publish_year}`;
+                }
+
+                if (book._description !== null) {
+                    cellContent += `<br> Description: ${book._description}`;
+                }
+
+                bookNameCell.innerHTML = cellContent;
+                newRow.appendChild(bookNameCell);
+                bookTable.appendChild(newRow);
             }
         }
     }
