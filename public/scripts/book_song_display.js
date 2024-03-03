@@ -1,6 +1,13 @@
 import {SongController} from "./song_controller.js";
 import {BookController} from "./book_controller.js";
 
+function setEventListenerBackButtons (username, buttonID) {
+
+    buttonID.addEventListener('click', function() {
+        window.location.href = `decision_page.html?username=${encodeURIComponent(username)}`
+    });
+}
+
 function deleteTableRows(tableToBeDeleted) {
     if (tableToBeDeleted.rows.length > 0) {
         while (tableToBeDeleted.rows.length > 0) {
@@ -13,8 +20,6 @@ export default function displaySongsBooks(clickedCountry) {
     // Determine if the user clicked on the book or song display button.
     const urlParams = new URLSearchParams(window.location.search);
     const isSongDisplayStr = urlParams.get('isSongDisplay');
-
-    console.log(clickedCountry);
 
     // Get the table ids.
     const bookTable = document.querySelector("#dynamic_table_books");
@@ -35,9 +40,9 @@ export default function displaySongsBooks(clickedCountry) {
                 const newRow = document.createElement("tr");
 
                 const songNameCell = document.createElement("td");
-                let cellContent = `Song Name: ${song._song_name} <br> 
-                      Artist Name: ${song._artist} <br> 
-                      Recommended By: ${song._recommending_user} <br> 
+                let cellContent = `Song Name: ${song._song_name} <br>
+                      Artist Name: ${song._artist} <br>
+                      Recommended By: ${song._recommending_user} <br>
                       Country Of The Recommending User: ${song._recommending_user_country}`;
 
                 // Add the year of release and the description if the user provided them.
@@ -64,9 +69,9 @@ export default function displaySongsBooks(clickedCountry) {
                 const newRow = document.createElement("tr");
 
                 const songNameCell = document.createElement("td");
-                let cellContent = `Song Name: ${song._song_name} <br> 
-                      Artist Name: ${song._artist} <br> 
-                      Recommended By: ${song._recommending_user} <br> 
+                let cellContent = `Song Name: ${song._song_name} <br>
+                      Artist Name: ${song._artist} <br>
+                      Recommended By: ${song._recommending_user} <br>
                       Country Of The Recommending User: ${song._recommending_user_country}`;
 
                 // Add the year of release and the description if the user provided them.
@@ -101,9 +106,9 @@ export default function displaySongsBooks(clickedCountry) {
                 const newRow = document.createElement("tr");
 
                 const bookNameCell = document.createElement("td");
-                let cellContent = `Book Name: ${book._book_name} <br> 
-                      Book Name: ${book._author} <br> 
-                      Recommended By: ${book._recommending_user} <br> 
+                let cellContent = `Book Name: ${book._book_name} <br>
+                      Book Name: ${book._author} <br>
+                      Recommended By: ${book._recommending_user} <br>
                       Country Of The Recommending User: ${book._recommending_user_country}`;
 
                 // Add the year of release and the description if the user provided them.
@@ -129,9 +134,9 @@ export default function displaySongsBooks(clickedCountry) {
                 const newRow = document.createElement("tr");
 
                 const bookNameCell = document.createElement("td");
-                let cellContent = `Book Name: ${book._book_name} <br> 
-                      Author Name: ${book._author} <br> 
-                      Recommended By: ${book._recommending_user} <br> 
+                let cellContent = `Book Name: ${book._book_name} <br>
+                      Author Name: ${book._author} <br>
+                      Recommended By: ${book._recommending_user} <br>
                       Country Of The Recommending User: ${book._recommending_user_country}`;
 
                 // Add the year of release and the description if the user provided them.
@@ -150,6 +155,24 @@ export default function displaySongsBooks(clickedCountry) {
                 songTable.style.display = "table";
             }
         }
+    }
+}
+
+window.onload = function() {
+    // Get the username of the user
+    const urlParams = new URLSearchParams(window.location.search);
+    const isSongDisplayStr = urlParams.get('isSongDisplay');
+    const username = urlParams.get('username');
+
+    // Set an event listener for the back buttons.
+    if (isSongDisplayStr === "true") {
+        const songBackButton = document.querySelector('#song_display_back');
+        setEventListenerBackButtons(username, songBackButton);
+    }
+
+    else {
+        const bookBackButton = document.querySelector('#book_display_back');
+        setEventListenerBackButtons(username, bookBackButton);
     }
 }
 
