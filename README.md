@@ -83,7 +83,7 @@ After recommending your favorites, or if you're curious about what others are re
    
         ![Screenshot9](public/images/pp-9.png)
      
-     3. You can further click on other countries to see which songs has been recommended in those respective countries.
+     3. You can further click on other countries to see which songs has been recommended in those respective countries. For instance, below I clicked on the United States. As a result, the song that was recommended by a user in US is shown.
      
         ![Screenshot10](public/images/pp-10.png)
    
