@@ -5,10 +5,10 @@ Welcome to my interactive web application! This platform allows you to signup, l
 ![Screenshot1](public/images/pp-1.png)
 
 ## How To Run The Program
-- Enter the command **"node server.js"** on the terminal to launch a local server and open the port in **Firefox**.
+- Enter the command **"node server.js"** on the terminal to launch a local server and open the port in **Firefox** or **Opera**.
 
 ## Project Dependencies
-- **Node.js:** Ensure that Node.js is installed on your system.
+- **Node.js:** Ensure that Node.js is installed on your system to run the program.
 
 ## Currently Available Countries When Signing Up
 - **Canada**
@@ -16,7 +16,7 @@ Welcome to my interactive web application! This platform allows you to signup, l
 - **Mexico**
 
 ## Notes About The Background Stars
-- Currently, this application can be run on **Firefox** due to the custom fragment and vertex shaders which define the background stars.
+- Currently, this application can be run on **Firefox** and **Opera** due to the custom fragment and vertex shaders which define the background stars.
 - The rendering of background stars may experience limitations when the graphics processing unit (GPU) within your computer is of an older model.
 
 ## How to Interact With The Graphics
