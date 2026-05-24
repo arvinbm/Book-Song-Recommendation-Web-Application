@@ -1,93 +1,208 @@
-## Introduction
+# Book & Song Recommendation Web Application
 
-Welcome to my interactive web application! This platform allows you to signup, log in, and recommend songs and books to your friends and even strangers. It also allows ypu to see which songs or books are recommended in different countries.
+An interactive full-stack web application where users can sign up, log in, and recommend books and songs by country. Recommendations are visualized on a 3D interactive WebGL Earth globe — right-click any country to see what others have recommended from that region.
 
-![Screenshot1](public/images/pp-1.png)
+![Landing page with 3D Earth globe](public/images/pp-1.png)
 
-## How To Run The Program
-- Enter the command **"node server.js"** on the terminal to launch a local server and open the port in **Firefox** or **Opera**.
+---
 
-## Project Dependencies
-- **Node.js:** Ensure that Node.js is installed on your system to run the program.
+## Features
 
-## Currently Available Countries When Signing Up
-- **Canada**
-- **United States**
-- **Mexico**
+- **3D interactive Earth globe** — rendered with WebGL; left-click and drag to rotate, right-click a country to load its recommendations
+- **Animated star background** — procedurally generated via custom GLSL vertex and fragment shaders
+- **User authentication** — sign up and log in with username/password stored in `localStorage`
+- **Book & song recommendations** — submit a book or song tied to your account's country
+- **Country-filtered display** — recommendations are filtered by the country of the recommending user, shown in a dynamically built table
+- **Form validation** — inline error messages for empty required fields, duplicate usernames, and wrong passwords
+- **Password visibility toggle** — eye icon switches between hidden and visible password input
+- **No backend database** — all state (users, books, songs) lives in the browser's `localStorage`; no server-side persistence required
 
-## Notes About The Background Stars
-- Currently, this application can be run on **Firefox** and **Opera** due to the custom fragment and vertex shaders which define the background stars.
-- The rendering of background stars may experience limitations when the graphics processing unit (GPU) within your computer is of an older model.
+---
 
-## How to Interact With The Graphics
+## Tech Stack
 
-I've incorporated an interactive feature into the application - an Earth set in space, which enhances the visual appeal of the platform and improves the user interface.
+| Layer | Technology |
+|---|---|
+| Runtime | Node.js + Express (static file server) |
+| Frontend | Vanilla JavaScript (ES6 modules) |
+| 3D Graphics | WebGL2 + custom GLSL shaders |
+| Earth Texture | NASA 8K day map + cloud layer |
+| Country Borders | GeoJSON (`countries.geojson`) |
+| Styling | CSS + normalize.css |
+| Persistence | `localStorage` |
 
-**In All Web Pages:**
+> **Browser compatibility:** The custom GLSL star shaders currently run on **Firefox** and **Opera** only. Chrome/Edge may render without the star background.
 
-- You can left-click and drag the Earth to rotate it, and to navigate different territories on earth.
+---
 
-**After clicking on "See Recommended Books" or "See Recommended Songs":**
+## Project Structure
 
-- Once the white borders of the countries become visible, right-click on any of the available countries to generate a table displaying the recommended songs or books for that region.
+```
+Book-Song-Recommendation-Web-Application/
+  public/
+    pages/          # HTML pages (index, login, signup, decision, book/song rec & display)
+    scripts/        # ES6 module JavaScript
+      earth.js            # WebGL globe geometry, textures, rotation
+      display_earth.js    # GeoJSON border rendering + right-click country detection
+      stars.js            # Procedural star background (GLSL shaders)
+      user.js / user_controller.js
+      book.js / book_controller.js
+      song.js / song_controller.js
+      book_song_recommendation.js
+      book_song_display.js
+      decision_page.js
+      log_in.js / sign_up.js
+    styles/
+      styles.css
+    files/
+      countries.geojson   # Country border polygons for globe overlay
+    images/               # Earth textures + README screenshots
+  server.js               # Express app — serves static files
+  package.json
+```
 
-## How to Navigate & Use the Web Application
+---
 
-### Signing Up:
-    
-If you're new here, sign up to create an account and start exploring the platform's features.
-   - Fields which include an asterisk are required. If you try to sign up before providing the required information, you will be informed that you must do so.
-   
-     ![Screenshot2](public/images/pp-2.png)
+## Getting Started
 
-   - If you enter a username which is in use, you will be informed that you can't use that specific username and are asked to choose another one.
+### Prerequisites
 
-     ![Screenshot3](public/images/pp-3.png)
+- **Node.js 20.x** or later
+- **Firefox** or **Opera** (required for the GLSL star shader)
 
-   - You can toggle the visibility of the password field by clicking on the eye icon located next to it, switching between obscured (secret) and visible (non-secret) modes.
+### Installation
 
-   - Finally, after providing all the required information you are logged in after clicking on the signup button!
+```bash
+git clone https://github.com/arvinbm/Book-Song-Recommendation-Web-Application.git
+cd Book-Song-Recommendation-Web-Application
+npm install
+```
 
-     ![Screenshot4](public/images/pp-4.png)
+### Run
 
-### Logging In:
+```bash
+node server.js
+```
 
-Already have an account? Log in to access your profile and personalized recommendations.
-  - If you enter a username that does not exist and try to log in, you will be informed that you are not signed up in this web application and are asked to creat an account.
+Then open **http://localhost:3000** in Firefox or Opera.
 
-    ![Screenshot5](public/images/pp-5.png)
+---
 
-  - If the username you provided exists, but the password is incorrect; you will be informed that the password for that specific username is wrong and are asked to enter the correct password.
+## Usage
 
-    ![Screenshot6](public/images/pp-6.png)
+### 1. Sign Up
 
-  - Similar to the signup page, you can toggle the visibility of the password field by clicking on the eye icon located next to it, switching between obscured (secret) and visible (non-secret) modes.
+Create an account by providing your first name, last name, email, country, username, and password. Fields marked with an asterisk are required.
 
-### Recommending a Book or a Song:
+- Submitting with empty required fields shows inline error messages
+- Duplicate email or username is detected and rejected
+- Password visibility can be toggled with the eye icon
 
-Once logged in, head over to the "Recommend a Song" or "Recommend a Book" page to share your current favorite song or book with others.
-   - After choosing one of the pages, you can fill the required fields to recommend a book or a song.
+![Sign-up form with validation](public/images/pp-2.png)
 
-   - If you click on the recommend button before providing an input for the required fields, you will be informed to do so.
+![Username already taken error](public/images/pp-3.png)
 
-     ![Screenshot7](public/images/pp-7.png)
+After successful sign-up you are redirected to the decision page.
 
-   - Once you provided all the required information click on the recommend button. You will automatically re-directed to the decision page and you will be informed that your recommend song or book has been saved.
+![Decision page after sign-up](public/images/pp-4.png)
 
-     ![Screenshot8](public/images/pp-8.png)
+---
 
-### See Which Songs & Books Are Recommended:
+### 2. Log In
 
-After recommending your favorites, or if you're curious about what others are recommending, visit the respective pages to see the recommendations.
-   - **See Recommended Song:** Explore the recommended songs and discover new tracks.
-   - **Book Recommended Books:** Check out the recommended books and add new titles to your reading list.
-   - **Earth Interaction:** Right click on one of the available countries to see its recommendations. Once you enter in one of the above web pages it might take a few seconds for the white country borders to be visible.
-     1. Right click on one of the available country to see its recommendations. 
-     2. For example below in the "See Recommended Songs" page, I found Canada on the globe and right-clicked on it. As you can see a table of all the songs that has been recommended is generated. You can see the song David has recommended!
-   
-        ![Screenshot9](public/images/pp-9.png)
-     
-     3. You can further click on other countries to see which songs has been recommended in those respective countries. For instance, below I clicked on the United States. As a result, the song that was recommended by a user in US is shown.
-     
-        ![Screenshot10](public/images/pp-10.png)
-   
+Return users can log in with their username and password.
+
+- Entering a username that does not exist shows a "no account" error
+- Entering a correct username with a wrong password shows a "wrong password" error
+
+![Login — unknown username error](public/images/pp-5.png)
+
+![Login — wrong password error](public/images/pp-6.png)
+
+---
+
+### 3. Recommend a Book or Song
+
+From the decision page, choose **Recommend a Song** or **Recommend a Book**. Fill in the required fields (name and artist/author) and optionally add a release/publication year and a description. Click **Recommend** to save.
+
+- Submitting without required fields shows inline error messages
+- On success you are redirected back to the decision page with a confirmation message
+
+![Song recommendation form — validation error](public/images/pp-7.png)
+
+![Decision page — recommendation saved confirmation](public/images/pp-8.png)
+
+---
+
+### 4. Browse Recommendations by Country
+
+Click **See Recommended Songs** or **See Recommended Books** on the decision page. The globe loads with white country borders visible after a moment. **Right-click any country** to generate a table of all recommendations submitted by users from that region.
+
+![Song display — Canada selected, showing recommended songs](public/images/pp-9.png)
+
+![Song display — United States selected](public/images/pp-10.png)
+
+Currently supported countries for sign-up: **Canada**, **United States**, **Mexico**.
+
+---
+
+## Architecture
+
+All data is managed client-side using three controller classes that serialize to and read from `localStorage`:
+
+```
+UserController  →  localStorage.userArray
+BookController  →  localStorage.booksArray
+SongController  →  localStorage.songsArray
+```
+
+Each controller follows the same pattern: the constructor hydrates from storage, `add*()` pushes and re-serializes, and `getAll*()` deserializes on demand. Page state (logged-in username, whether a book/song was just added) is passed between pages via URL query parameters.
+
+The WebGL globe is split across three modules: `earth.js` handles geometry and textures, `display_earth.js` overlays GeoJSON country borders and maps right-click pixel coordinates to country names, and `stars.js` draws the procedural star field as a full-screen quad with a GLSL fragment shader.
+
+---
+
+## Bug Fixes
+
+The following bugs were identified and fixed:
+
+**1. `BookController.getAllBooks()` crash on empty state**
+`JSON.parse(localStorage.booksArray)` threw a `TypeError` when no books had been added yet because `localStorage.booksArray` was `undefined`. Fixed by adding the `|| '[]'` fallback:
+```js
+// Before
+return JSON.parse(localStorage.booksArray);
+// After
+return JSON.parse(localStorage.booksArray || '[]');
+```
+
+**2. `SongController.getAllSongs()` crash on empty state**
+Same issue as above — `JSON.parse(localStorage.songsArray)` crashed when no songs existed yet. Fixed identically:
+```js
+// Before
+return JSON.parse(localStorage.songsArray);
+// After
+return JSON.parse(localStorage.songsArray || '[]');
+```
+
+**3. Wrong cell label for book author in display table**
+In `book_song_display.js`, the non-USA branch for books used `"Book Name:"` as the label for the author field instead of `"Author Name:"`. This caused the author's name to appear under a duplicate "Book Name" heading in the table.
+```js
+// Before
+`Book Name: ${book._book_name} <br>
+ Book Name: ${book._author} <br>`    // ← wrong label
+
+// After
+`Book Name: ${book._book_name} <br>
+ Author Name: ${book._author} <br>`
+```
+
+**4. `songTable` shown instead of `bookTable` in the USA books branch**
+In `book_song_display.js`, the USA-country special-case for the book display incorrectly called `songTable.style.display = "table"`. This meant the book table remained hidden even when a valid USA book recommendation was matched. Fixed to `bookTable.style.display = "table"`.
+
+---
+
+## Notes
+
+- Clearing browser storage resets all users, books, and songs — there is no server-side persistence
+- The application is deployed via Azure App Service (see `.github/workflows/`)
+- Earth texture images are from NASA's publicly available 8K surface maps

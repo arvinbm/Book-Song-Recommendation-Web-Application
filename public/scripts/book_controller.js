@@ -14,6 +14,6 @@ export class BookController {
     }
 
     getAllBooks() {
-        return JSON.parse(localStorage.booksArray);
+        return JSON.parse(localStorage.booksArray || '[]');
     }
 }

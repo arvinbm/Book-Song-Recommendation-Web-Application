@@ -14,6 +14,6 @@ export class SongController {
     }
 
     getAllSongs() {
-        return JSON.parse(localStorage.songsArray);
+        return JSON.parse(localStorage.songsArray || '[]');
     }
 }

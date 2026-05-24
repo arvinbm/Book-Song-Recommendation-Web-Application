@@ -107,7 +107,7 @@ export default function displaySongsBooks(clickedCountry) {
 
                 const bookNameCell = document.createElement("td");
                 let cellContent = `Book Name: ${book._book_name} <br>
-                      Book Name: ${book._author} <br>
+                      Author Name: ${book._author} <br>
                       Recommended By: ${book._recommending_user} <br>
                       Country Of The Recommending User: ${book._recommending_user_country}`;
 
@@ -152,7 +152,7 @@ export default function displaySongsBooks(clickedCountry) {
                 newRow.appendChild(bookNameCell);
                 bookTable.appendChild(newRow);
 
-                songTable.style.display = "table";
+                bookTable.style.display = "table";
             }
         }
     }
