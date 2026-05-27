@@ -162,45 +162,6 @@ The WebGL globe is split across three modules: `earth.js` handles geometry and t
 
 ---
 
-## Bug Fixes
-
-The following bugs were identified and fixed:
-
-**1. `BookController.getAllBooks()` crash on empty state**
-`JSON.parse(localStorage.booksArray)` threw a `TypeError` when no books had been added yet because `localStorage.booksArray` was `undefined`. Fixed by adding the `|| '[]'` fallback:
-```js
-// Before
-return JSON.parse(localStorage.booksArray);
-// After
-return JSON.parse(localStorage.booksArray || '[]');
-```
-
-**2. `SongController.getAllSongs()` crash on empty state**
-Same issue as above — `JSON.parse(localStorage.songsArray)` crashed when no songs existed yet. Fixed identically:
-```js
-// Before
-return JSON.parse(localStorage.songsArray);
-// After
-return JSON.parse(localStorage.songsArray || '[]');
-```
-
-**3. Wrong cell label for book author in display table**
-In `book_song_display.js`, the non-USA branch for books used `"Book Name:"` as the label for the author field instead of `"Author Name:"`. This caused the author's name to appear under a duplicate "Book Name" heading in the table.
-```js
-// Before
-`Book Name: ${book._book_name} <br>
- Book Name: ${book._author} <br>`    // ← wrong label
-
-// After
-`Book Name: ${book._book_name} <br>
- Author Name: ${book._author} <br>`
-```
-
-**4. `songTable` shown instead of `bookTable` in the USA books branch**
-In `book_song_display.js`, the USA-country special-case for the book display incorrectly called `songTable.style.display = "table"`. This meant the book table remained hidden even when a valid USA book recommendation was matched. Fixed to `bookTable.style.display = "table"`.
-
----
-
 ## Notes
 
 - Clearing browser storage resets all users, books, and songs — there is no server-side persistence
